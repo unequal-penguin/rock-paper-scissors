@@ -4,6 +4,9 @@ const Choices = {
   Scissors: 'scissors'
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 function game() {
   for (let index = 0; index < 5; index++) {
     let playerChoice = getPlayerChoice();
@@ -11,10 +14,10 @@ function game() {
 
     let roundResult = playRound(playerChoice, computerChoice);
 
-    console.log("**************************************************");
-    console.log(`Player choice: ${playerChoice}, Computer choice: ${computerChoice}`);
-    console.log(roundResult);
+    printRoundResult(playerChoice, computerChoice, roundResult);
   }
+
+  printFinalResults();
 }
 
 function playRound(playerChoice, computerChoice) {
@@ -25,14 +28,30 @@ function playRound(playerChoice, computerChoice) {
     (playerChoice === Choices.Paper && computerChoice === Choices.Rock) ||
     (playerChoice === Choices.Scissors && computerChoice === Choices.Paper)
 
-  if (playerChoice === computerChoice)
+  if (playerChoice === computerChoice) {
     return "It's a tie!";
+  }
 
-  else if (playerWinCondition)
+  else if (playerWinCondition) {
+    playerScore++;
     return `You win! ${capitalize(playerChoice)} beats ${computerChoice}`;
+  }
+
+  else {
+    computerScore++;
+    return `You lose! ${capitalize(computerChoice)} beats ${playerChoice}`;
+  }
+}
+
+function getGameResultMessage() {
+  if (playerScore === computerScore)
+    return "It's a tie! 👔";
+
+  else if (playerScore > computerScore)
+    return 'You win!!! 😳'
 
   else
-    return `You lose! ${capitalize(computerChoice)} beats ${playerChoice}`;
+    return 'You lose! 😵'
 }
 
 function getComputerChoice() {
@@ -62,6 +81,19 @@ function validatePlayerChoice(playerChoice) {
 
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+function printRoundResult(playerChoice, computerChoice, roundResult) {
+  console.log("**************************************************");
+  console.log(`Player choice: ${playerChoice}, Computer choice: ${computerChoice}`);
+  console.log(roundResult);
+}
+
+function printFinalResults() {
+  console.log("\n***************** Final Score ********************");
+  console.log(`Player: ${playerScore} - Computer: ${computerScore}`);
+  console.log(getGameResultMessage());
+  console.log("**************************************************");
 }
 
 game();
