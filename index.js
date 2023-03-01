@@ -4,20 +4,18 @@ const Choices = {
   Scissors: 'scissors'
 }
 
+const gameHeader = document.querySelector('.game-result');
+const scoreHeader = document.querySelector('.score');
+
 let playerScore = 0;
 let computerScore = 0;
 
 function game() {
-  for (let index = 0; index < 5; index++) {
-    let playerChoice = getPlayerChoice();
-    let computerChoice = getComputerChoice();
+  const computerChoice = getComputerChoice();
+  const playerChoice = this.id;
 
-    let roundResult = playRound(playerChoice, computerChoice);
-
-    printRoundResult(playerChoice, computerChoice, roundResult);
-  }
-
-  printFinalResults();
+  gameHeader.textContent = playRound(playerChoice, computerChoice);
+  scoreHeader.textContent = `Player Score: ${playerScore} - Computer Score: ${computerScore}`;
 }
 
 function playRound(playerChoice, computerChoice) {
@@ -61,24 +59,6 @@ function getComputerChoice() {
   return choicesList[randomChoiceIndex];
 }
 
-function getPlayerChoice() {
-  let validPlayerChoice = false;
-  let playerChoice = '';
-
-  while (!validPlayerChoice) {
-    playerChoice = prompt('Choose rock, paper, or scissors:');
-    validPlayerChoice = validatePlayerChoice(playerChoice);
-  }
-
-  return playerChoice;
-}
-
-function validatePlayerChoice(playerChoice) {
-  const choicesList = [Choices.Rock, Choices.Paper, Choices.Scissors];
-
-  return choicesList.includes(playerChoice.toLowerCase());
-}
-
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
@@ -96,4 +76,6 @@ function printFinalResults() {
   console.log("**************************************************");
 }
 
-game();
+const choiceButtons = document.querySelectorAll('button');
+
+choiceButtons.forEach(item => item.addEventListener('click', game));

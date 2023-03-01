@@ -1,0 +1,14 @@
+body {
+    text-align: center;
+    align-items: center;
+    font-size: 16px;
+    font-family: Verdana, sans-serif;
+}
+
+button {
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    margin: 0 10px;
+    font-size: 24px;
+}
